@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sidebar component mocked 1`] = `
+<div>
+  <div
+    class="sidebar"
+    data-testid="sidebar"
+  >
+    <a
+      aria-current="page"
+      class="active"
+      href="/"
+    >
+      Home
+    </a>
+    <ul />
+  </div>
+</div>
+`;
+
+exports[`sidebar component mocked 2`] = `
+<div>
+  <div
+    class="sidebar"
+    data-testid="sidebar"
+  >
+    <a
+      aria-current="page"
+      class="active"
+      href="/"
+    >
+      Home
+    </a>
+    <ul>
+      <li>
+        <a
+          href="/posts/one"
+        >
+          One
+        </a>
+      </li>
+      <li>
+        <a
+          href="/posts/two"
+        >
+          Two
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

@@ -1,0 +1,16 @@
+.login {
+  background-color: #f80;
+
+  .login-card {
+    background-color: #fff;
+    border-radius: 0.5em;
+    padding: 3em;
+
+    .login-button {
+      border: 2px solid #f80;
+      color: #f80;
+      padding: 0.5em;
+      text-transform: uppercase;
+    }
+  }
+}

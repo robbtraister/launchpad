@@ -1,5 +1,13 @@
-export function Home() {
-  return <div>Hello, world!</div>;
-}
+import clsx from "clsx";
 
-export default Home;
+import layout from "ui/styles/layout.scss";
+
+import { Table } from "./table";
+
+export function Home() {
+  return (
+    <div className={clsx(layout.fill, layout.column, layout.centeredContent)}>
+      <Table />
+    </div>
+  );
+}
