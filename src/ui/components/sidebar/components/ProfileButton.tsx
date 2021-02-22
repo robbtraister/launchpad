@@ -10,6 +10,8 @@ import {
 } from "@material-ui/core";
 import { AccountCircleOutlined } from "@material-ui/icons";
 
+const PATH_PREFIX = process.env.PATH_PREFIX;
+
 const profileAnchorOrigin: PopoverOrigin = {
   horizontal: "right",
   vertical: "center",
@@ -59,7 +61,7 @@ export function ProfileButton() {
           <MenuItem component={Link} to="/account" onClick={closeProfileMenu}>
             Account
           </MenuItem>
-          <MenuItem component="a" href="/logout">
+          <MenuItem component="a" href={`${PATH_PREFIX}/logout`}>
             Logout
           </MenuItem>
         </MenuList>
