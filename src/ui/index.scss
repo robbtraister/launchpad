@@ -6,8 +6,16 @@ body,
   width: 100%;
 }
 
-body,
-:global(#root) {
-  display: flex;
-  flex: 1;
+// body,
+// :global(#root) {
+//   display: flex;
+//   flex: 1;
+// }
+
+a {
+  text-decoration: none;
+}
+
+* {
+  font-family: Georgia, "Times New Roman", Times, serif;
 }

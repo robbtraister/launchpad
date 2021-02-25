@@ -1,0 +1,47 @@
+@import "ui/styles/constants.scss";
+
+.footer {
+  background-color: $nav-background;
+  left: 0;
+  padding: 10px 20px;
+  position: relative;
+  right: 0;
+  z-index: 9998;
+
+  .container {
+    display: flex;
+    margin: 0 auto;
+    max-width: $max-width + 10;
+
+    div {
+      border-left: 1px solid #058;
+      flex-grow: 1;
+      text-align: center;
+
+      &:first-child {
+        border: unset;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $mobile-width) {
+  .footer {
+    top: 48px;
+
+    .container {
+      flex-direction: column;
+
+      div {
+        border-left: unset;
+        border-top: 1px solid #058;
+        padding: 10px 0;
+
+        &:first-child {
+          border: unset;
+          padding-top: 0;
+        }
+      }
+    }
+  }
+}

@@ -24,7 +24,7 @@ if (redirect) {
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter basename={PATH_PREFIX}>
-      <App />
+      <App user={{}} store={{}} />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

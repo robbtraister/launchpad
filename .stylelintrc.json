@@ -12,8 +12,9 @@
     "max-empty-lines": 1,
     "max-nesting-depth": null,
     "selector-no-qualifying-type": null,
-    "selector-max-compound-selectors": 5,
+    "selector-max-compound-selectors": 10,
     "selector-max-id": 1,
-    "string-quotes": "double"
+    "string-quotes": "double",
+    "scss/at-import-partial-extension-blacklist": "off"
   }
 }

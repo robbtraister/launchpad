@@ -1,0 +1,204 @@
+@import "ui/styles/constants.scss";
+
+.nav {
+  background-color: $nav-background;
+  left: 0;
+  padding: 10px 20px;
+  right: 0;
+  z-index: 9999;
+
+  .container {
+    display: flex;
+    margin: 0 auto;
+    max-width: $max-width + 10;
+
+    .hamburger {
+      display: none;
+    }
+
+    .logo {
+      display: inline-block;
+      font-size: 24px;
+      font-weight: bold;
+      margin-right: auto;
+
+      .hello {
+        color: $app-background;
+        display: inline-block;
+      }
+
+      .wallet {
+        color: #555;
+        display: inline-block;
+      }
+
+      &:global(.active) {
+        cursor: auto;
+      }
+    }
+
+    :global(#logo-box) {
+      height: 0;
+      margin: 0;
+      padding: 0;
+      width: 0;
+    }
+
+    .menu {
+      .shade {
+        display: none;
+      }
+
+      .tabs {
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .tab {
+      display: inline-block;
+      list-style-type: none;
+      margin-left: 5px;
+
+      a {
+        border-radius: 5px;
+        color: $tab-color;
+        display: inline-block;
+        padding: 5px 7px;
+        text-transform: uppercase;
+
+        &:hover {
+          background-color: $hover-tab-background;
+          color: $hover-tab-color;
+        }
+
+        &:global(.active) {
+          background-color: $nav-background;
+          color: $active-tab-color;
+          cursor: auto;
+        }
+      }
+
+      &.profile a {
+        background-color: $profile-tab-background;
+        border-radius: 5px;
+        color: $profile-tab-color;
+      }
+    }
+  }
+}
+
+.mobile {
+  display: none !important;
+}
+
+@media only screen and (max-width: $mobile-width) {
+  .nav {
+    position: fixed;
+
+    .container {
+      .hamburger {
+        background: repeating-linear-gradient(0,
+        #555 0,
+        #555 2px,
+        transparent 2px,
+        transparent 5px);
+        border: 4px solid #fff;
+        border-radius: 2px;
+        display: inline-block;
+        height: 12px;
+        margin: auto 5px auto 0;
+        order: -1;
+        width: 12px;
+      }
+
+      .logo {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .menu {
+        bottom: 0;
+        left: -100%;
+        position: fixed;
+        top: 48px;
+        transition: left $transition-zero $menu-duration;
+        width: 100%;
+
+        .shade {
+          background-color: #000;
+          bottom: 0;
+          display: block;
+          left: 0;
+          opacity: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+          transition: opacity $menu-duration;
+        }
+
+        .tabs {
+          background-color: $dashboard-background;
+          border-top: 10px solid $tab-color;
+          bottom: 0;
+          flex-direction: column;
+          left: -50%;
+          position: absolute;
+          top: 0;
+          transition: left $menu-duration;
+          width: 50%;
+
+          .tab a {
+            padding: 10px;
+          }
+        }
+      }
+
+      .tab {
+        display: block;
+        margin-left: 0;
+
+        a {
+          border-radius: 0;
+          display: block;
+        }
+      }
+
+      &.open .hamburger,
+      // &:not(.closed) .hamburger:focus,
+      &:not(.closed) :global(#logo-box):focus ~ label > .hamburger {
+        background: repeating-linear-gradient(0,
+        transparent 0,
+        transparent 2px,
+        #555 2px,
+        #555 5px);
+        border-color: #555;
+      }
+
+      &.open .menu,
+      // &:not(.closed) .hamburger:focus ~ .menu,
+      &:not(.closed) :global(#logo-box):focus ~ .menu {
+        left: 0;
+        transition: left $transition-zero $transition-zero;
+
+        .shade {
+          opacity: 0.4;
+        }
+
+        .tabs {
+          left: 0;
+        }
+      }
+    }
+  }
+
+  .desktop {
+    display: none !important;
+  }
+
+  .mobile {
+    display: initial !important;
+  }
+}

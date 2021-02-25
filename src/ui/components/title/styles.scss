@@ -1,0 +1,32 @@
+.header {
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+
+  .hatching {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    height: 40%;
+    top: 30%;
+    z-index: 1;
+    background: repeating-linear-gradient(
+      90deg,
+      #555,
+      #555 2px,
+      transparent 2px,
+      transparent 5px
+    );
+  }
+
+  .title {
+    position: relative;
+    display: inline;
+    background-color: #fff;
+    color: #555;
+    font-size: 24px;
+    padding: 0 10px;
+    z-index: 2;
+  }
+}

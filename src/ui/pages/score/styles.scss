@@ -1,0 +1,84 @@
+@import '../../components/constants.scss';
+
+.grid {
+  display: grid;
+  grid-template-columns: 300px auto;
+
+  .total {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: span 10;
+
+    .title {
+      color: #058;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .peer {
+      background-color: #eee;
+      border-radius: 3px;
+      margin-top: 10px;
+      padding: 10px;
+
+      .title {
+        color: #808;
+      }
+    }
+  }
+
+  .entry {
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 150px auto;
+    grid-column-gap: 20px;
+
+    .meter {
+      align-self: center;
+    }
+
+    .content {
+      .title {
+        color: #555;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 10px 0;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  @media only screen and (max-width: $mobile-width) {
+    grid-template-columns: 100%;
+
+    .total {
+      .peer {
+        display: none;
+      }
+    }
+
+    .entry {
+      grid-template-columns: 100%;
+
+      .content {
+        text-align: center;
+        grid-row-start: 1;
+        grid-row-end: 1;
+      }
+
+      .meter {
+        grid-row-start: 2;
+        grid-row-end: 2;
+
+        margin: 0 auto;
+        width: 75%;
+      }
+    }
+
+    .description {
+      display: none;
+    }
+  }
+}

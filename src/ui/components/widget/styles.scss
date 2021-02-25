@@ -1,0 +1,9 @@
+@import "ui/styles/constants.scss";
+
+.widget {
+  background-color: $widget-background;
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px #ddd;
+  margin: 5px;
+  padding: 10px;
+}

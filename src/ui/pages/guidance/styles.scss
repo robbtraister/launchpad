@@ -1,0 +1,10 @@
+@import '../../components/constants.scss';
+
+.grid {
+  display: grid;
+  grid-template-columns: auto;
+
+  @media only screen and (max-width: $mobile-width) {
+    grid-template-columns: 100%;
+  }
+}
