@@ -10,12 +10,11 @@ function getDependencies(rootDir: string) {
     Object.keys(require(path.join(rootDir, "package.json")).dependencies || {})
       // react-query/devtools are not exposed via the root import
       .concat("react-query/devtools")
-      .filter((dep) => !/^@citrine\//.test(dep))
       .filter((dep) => {
         // verify that an import exists for this module
         try {
           require.resolve(dep);
-        } catch (e) {
+        } catch (e: any) {
           if (e.code === "MODULE_NOT_FOUND") {
             return false;
           }

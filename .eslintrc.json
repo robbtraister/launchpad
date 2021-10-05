@@ -79,7 +79,9 @@
     "valid-typeof": "off",
     "formatjs/no-camel-case": "error",
     "formatjs/no-emoji": "error",
-    "formatjs/no-multiple-whitespaces": "error"
+    "formatjs/no-multiple-whitespaces": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error"
   },
   "overrides": [
     {
@@ -93,9 +95,7 @@
         "react/jsx-no-constructed-context-values": "error",
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        "react/self-closing-comp": "error",
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "error"
+        "react/self-closing-comp": "error"
       }
     },
     {

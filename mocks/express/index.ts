@@ -5,6 +5,7 @@ import path from "path";
 
 import compression from "compression";
 import express from "express";
+// @ts-ignore
 import selfsigned from "selfsigned";
 
 import { createApp } from "./app";

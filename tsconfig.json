@@ -16,15 +16,19 @@
       "DOM.Iterable",
       "ES2017"
     ],
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "outDir": "./dist/",
     "paths": {
-      "images/*": ["./src/images/*"],
-      "ui/*": ["./src/ui/*"]
+      "images/*": [
+        "./src/images/*"
+      ],
+      "ui/*": [
+        "./src/ui/*"
+      ]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -52,6 +56,13 @@
   "include": [
     "./mocks/",
     "./mocks/**/*.json",
-    "./src/"
-  ]
+    "./src/",
+    "./*.ts",
+    "./*.json"
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }

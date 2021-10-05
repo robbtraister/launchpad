@@ -1,5 +1,9 @@
+import { Server } from "http";
 import path from "path";
-import webpack from "webpack";
+
+import chokidar from "chokidar";
+import express, { Application, Router } from "express";
+import webpack, { Compiler } from "webpack";
 
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 // import FaviconsWebpackPlugin from "favicons-webpack-plugin";
@@ -25,24 +29,26 @@ class OnBuildPlugin {
     this.fn = fn;
   }
 
-  apply(compiler) {
+  apply(compiler: Compiler) {
     compiler.hooks.done.tap(this.constructor.name, this.fn);
   }
 }
 
 let built = false;
+let mocksApp: Router | null = null;
+let redirectServer: Server | null = null;
 
 const appEntry = "./src/ui";
 const hmrEntry = require.resolve("react-dev-utils/webpackHotDevClient");
 const overlayEntry = require.resolve("react-dev-utils/refreshOverlayInterop");
 
-export default function (_, argv: any = {}) {
+export default function (_: unknown, argv: any = {}) {
   const isProd =
     Boolean(argv.production) ||
     PRODUCTION_PATTERN.test(process.env.NODE_ENV || "") ||
     PRODUCTION_PATTERN.test(argv.mode || "");
 
-  const hmr = !isProd && argv.hmr !== false;
+  const hot = !isProd && argv.hot !== false;
   const https = argv.https !== false;
   const linting = argv.linting !== false;
   const pathPrefix = argv.pathPrefix === false ? "" : `/${name}`;
@@ -52,12 +58,12 @@ export default function (_, argv: any = {}) {
   // dev should default to watch=true; prod should default to watch=false
   const watch = isProd ? Boolean(argv.watch) : argv.watch !== false;
 
-  const liveReload = watch && !hmr && Boolean(argv.liveReload);
+  const liveReload = watch && !hot && Boolean(argv.liveReload);
 
-  const port = Number(argv.port) || 8080;
+  const port = Number(argv.port) || (https ? 443 : 80);
 
   return {
-    entry: hmr ? [hmrEntry, appEntry] : appEntry,
+    entry: hot ? [hmrEntry, appEntry] : appEntry,
     devtool: isProd ? "source-map" : "eval-source-map",
     mode: isProd ? "production" : "development",
     optimization: isProd
@@ -144,7 +150,7 @@ export default function (_, argv: any = {}) {
           context: __dirname,
           manifest: require("./public/vendors-manifest.json"),
         }),
-      hmr &&
+      hot &&
         new ReactRefreshWebpackPlugin({
           overlay: {
             entry: hmrEntry,
@@ -289,7 +295,7 @@ export default function (_, argv: any = {}) {
         index: `${pathPrefix}/index.html`,
       },
       host: "0.0.0.0",
-      hot: hmr,
+      hot,
       https,
       injectClient: liveReload,
       liveReload,
@@ -297,33 +303,55 @@ export default function (_, argv: any = {}) {
       openPage: `http${https ? "s" : ""}://localhost:${port}${pathPrefix}`,
       port,
       publicPath: `${pathPrefix}/`,
-      transportMode: hmr ? "ws" : "sockjs",
+      transportMode: hot ? "ws" : "sockjs",
       watchContentBase: false,
       watchOptions: {
         poll: 1000,
         aggregateTimeout: 300,
         ignored: watch ? /node_modules/ : /./,
       },
-      before(app) {
+      before(app: Application) {
+        // redirect from http to https
+        redirectServer = express()
+          .use((req, res) => {
+            res.redirect(`https://${req.hostname}:${port}${req.originalUrl}`);
+          })
+          .listen(80);
+
         if (argv.healthCheck !== false) {
           app.get("/health-check", (_req, res) => {
             res.send(`{"status":"${built ? "healthy" : "pending"}"}`);
           });
         }
 
+        // watch for changes to mocks server and invalidate cache
+        // the server is reloaded on each request due to env vars
+        const mocksDir = path.resolve(__dirname, "mocks");
+        const dataDir = path.join(mocksDir, "data/");
+        chokidar
+          .watch(mocksDir, { ignored: `${dataDir}**/*` })
+          .on("change", () => {
+            Object.keys(require.cache)
+              // invalidate all mocks code, but not data
+              .filter((p) => p.startsWith(mocksDir) && !p.startsWith(dataDir))
+              .forEach((p) => {
+                delete require.cache[p];
+              });
+            mocksApp = null;
+          });
+
         app.use(`${pathPrefix}/`, async (req, res, next) => {
-          const { createApp } = await import("./mocks/express/app");
-          createApp()(req, res, next);
+          if (!mocksApp) {
+            const { createApp } = await import("./mocks/express/app");
+            mocksApp = createApp();
+          }
+          mocksApp!(req, res, next);
         });
       },
-      // proxy: argv.fakes
-      //   ? undefined
-      //   : {
-      //       "/api": {
-      //         target: API_TARGET,
-      //         changeOrigin: true,
-      //       },
-      //     },
     },
   };
 }
+
+process.on("exit", () => {
+  redirectServer?.close();
+});

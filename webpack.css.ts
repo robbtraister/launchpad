@@ -50,7 +50,7 @@ export default {
                 exportOnlyLocals: true,
               },
             },
-          }, // translates CSS into CommonJS
+          },
         ],
       },
       {
@@ -60,10 +60,15 @@ export default {
             loader: "sass-loader",
             options: {
               sassOptions: {
+                fiber:
+                  Number(process.versions.node.split(".")[0]) >= 16
+                    ? false
+                    : // this option does not support `true` as a value
+                      undefined,
                 includePaths: ["./"],
               },
             },
-          }, // compiles Sass to CSS, using Node Sass by default
+          },
         ],
       },
     ],
