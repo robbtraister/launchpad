@@ -8,7 +8,6 @@
   "scripts": {
     "__build:css__": "[ -f ./webpack.css.ts ] && webpack --config ./webpack.css.ts",
     "__build:vendors__": "[ -f ./webpack.vendors.ts ] && ([ ! -f ./public/vendors-manifest.json ] || [ \"$(md5 -q ./node_modules/.yarn-integrity)\" != \"$(node -p \"require('./public/vendors-manifest.json').name.split('_').pop()\")\" ]) && NODE_OPTIONS=--max-old-space-size=4096 webpack --config ./webpack.vendors.ts --hash $(md5 -q ./node_modules/.yarn-integrity) || true",
-    "__lint:filenames__": "f(){\nUPPER_FILES=$(ls $@ | grep '[A-Z]' | grep -E -i '\\.([jt]sx?|s?[ac]ss|ico|jpg|png|svg)$'); [ -z \"${UPPER_FILES}\" ] || (echo 'No uppercase filenames.'; echo; echo \"${UPPER_FILES}\"; echo; exit 1)\n}\nf",
     "analyze": "yarn run --silent build -p --profile --json > ./stats.json && webpack-bundle-analyzer ./stats.json ./dist/ --mode static",
     "build": "webpack -p --display-error-details",
     "clean": "yarn run clean:artifacts && rimraf ./node_modules",
@@ -17,7 +16,7 @@
     "freeze": "yarn install --frozen-lockfile",
     "lint": "yarn run lint:filenames && yarn run lint:css && yarn run lint:js",
     "lint:css": "stylelint --cache 'src/**/*.scss'",
-    "lint:filenames": "yarn run --silent __lint:filenames__ $(find ./src -type f)",
+    "lint:filenames": "ls-lint",
     "lint:js": "eslint --cache --ext .js,.ts,.tsx --no-error-on-unmatched-pattern mocks src",
     "postupdate": "yarn run lint:css --fix && yarn run lint:js --fix",
     "preanalyze": "yarn run freeze && yarn run clean:artifacts",
@@ -46,6 +45,7 @@
     "styled-components": "^5.3.1"
   },
   "devDependencies": {
+    "@ls-lint/ls-lint": "^1.10.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/react": "^12.1.2",
@@ -127,7 +127,7 @@
   "lint-staged": {
     "*.{js,ts,tsx}": "yarn run --silent lint:js --fix",
     "*.{css,scss}": "yarn run --silent lint:css --fix",
-    "{mocks,src}/**/*": "yarn run --silent __lint:filenames__"
+    "{mocks,src}/**/*": "yarn run --silent lint:filenames"
   },
   "msw": {
     "workerDirectory": "public"

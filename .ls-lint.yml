@@ -1,0 +1,12 @@
+ls:
+  .js: kebab-case | point.case
+  .ts: kebab-case | point.case
+  .d.ts: kebab-case | point.case
+  .tsx: kebab-case | point.case
+
+ignore:
+  - .git
+  - dist
+  - docs
+  - node_modules
+  - public

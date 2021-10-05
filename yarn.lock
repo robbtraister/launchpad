@@ -1308,6 +1308,11 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@ls-lint/ls-lint@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@ls-lint/ls-lint/-/ls-lint-1.10.0.tgz#cad20085edc010a3e938aa01bb66d05e5e12b3f3"
+  integrity sha512-C1vrI8zFp/28CiqCQHtfu/GqUg2iLYZqtlJHCYfqlg6OJopv7lHAPS0rzk06Ev1121yj4Gi/GmXMBlF+j35DcQ==
+
 "@mswjs/cookies@^0.1.6":
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/@mswjs/cookies/-/cookies-0.1.6.tgz#176f77034ab6d7373ae5c94bcbac36fee8869249"
