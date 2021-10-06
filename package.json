@@ -14,10 +14,10 @@
     "clean:artifacts": "rimraf ./dist ./report.html ./stats.json ./storybook-output && yarn run clean:css",
     "clean:css": "rimraf './src/**/*.{css,scss}.d.ts'",
     "freeze": "yarn install --frozen-lockfile",
-    "lint": "yarn run lint:filenames && yarn run lint:css && yarn run lint:js",
+    "lint": "yarn run lint:ls && yarn run lint:css && yarn run lint:js",
     "lint:css": "stylelint --cache 'src/**/*.scss'",
-    "lint:filenames": "ls-lint",
     "lint:js": "eslint --cache --ext .js,.ts,.tsx --no-error-on-unmatched-pattern mocks src",
+    "lint:ls": "ls-lint",
     "postupdate": "yarn run lint:css --fix && yarn run lint:js --fix",
     "preanalyze": "yarn run freeze && yarn run clean:artifacts",
     "prebuild": "yarn run --silent clean:css",
@@ -127,7 +127,7 @@
   "lint-staged": {
     "*.{js,ts,tsx}": "yarn run --silent lint:js --fix",
     "*.{css,scss}": "yarn run --silent lint:css --fix",
-    "{mocks,src}/**/*": "yarn run --silent lint:filenames"
+    "{mocks,src}/**/*": "yarn run --silent lint:ls"
   },
   "msw": {
     "workerDirectory": "public"

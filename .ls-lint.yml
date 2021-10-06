@@ -1,7 +1,7 @@
 ls:
   .js: kebab-case | point.case
+  .json: kebab-case | point.case
   .ts: kebab-case | point.case
-  .d.ts: kebab-case | point.case
   .tsx: kebab-case | point.case
 
 ignore:
