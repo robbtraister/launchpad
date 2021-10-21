@@ -1,32 +1,38 @@
 {
   "files.exclude": {
-    "**/.eslintcache": true,
-    "**/.stylelintcache": true,
-    "**/.git/**": true,
-    "**/public/vendors*": true,
-    "**/report.html": true,
-    "**/stats.json": true
+    ".eslintcache": true,
+    ".stylelintcache": true,
+    ".git/**": true,
+    "public/vendors*": true,
+    "report.html": true,
+    "stats.json": true,
+    "src/**/*.css.d.ts": true,
+    "src/**/*.scss.d.ts": true
   },
   "files.insertFinalNewline": true,
   "files.watcherExclude": {
-    "**/.eslintcache": true,
-    "**/.stylelintcache": true,
-    "**/.git/**": true,
-    "**/dist/**": true,
-    "**/node_modules/**": true,
-    "**/public/vendors*": true,
-    "**/report.html": true,
-    "**/stats.json": true
+    ".eslintcache": true,
+    ".stylelintcache": true,
+    ".git/**": true,
+    "dist/**": true,
+    "node_modules/**": true,
+    "public/vendors*": true,
+    "report.html": true,
+    "stats.json": true,
+    "src/**/*.css.d.ts": true,
+    "src/**/*.scss.d.ts": true
   },
   "search.exclude": {
-    "**/.eslintcache": true,
-    "**/.stylelintcache": true,
-    "**/.git/**": true,
-    "**/dist/**": true,
-    "**/node_modules/**": true,
-    "**/public/vendors*": true,
-    "**/report.html": true,
-    "**/stats.json": true
+    ".eslintcache": true,
+    ".stylelintcache": true,
+    ".git/**": true,
+    "dist/**": true,
+    "node_modules/**": true,
+    "public/vendors*": true,
+    "report.html": true,
+    "stats.json": true,
+    "src/**/*.css.d.ts": true,
+    "src/**/*.scss.d.ts": true
   },
   "typescript.tsdk": "node_modules/typescript/lib"
 }
