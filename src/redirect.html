@@ -8,9 +8,9 @@
     <meta name="version" content="<%= htmlWebpackPlugin.options.version %>">
 
     <script>
-      window.document.write(`<meta http-equiv="refresh" content="0;URL=<%= htmlWebpackPlugin.options.pathPrefix %>/?redirect=${
-        encodeURI(window.location.pathname + window.location.search + window.location.hash)
-      }">`);
+      window.document.write(`<meta http-equiv="refresh" content="0;URL=<%= htmlWebpackPlugin.options.pathPrefix %>/?${new URLSearchParams({
+        redirect: window.location.pathname + window.location.search + window.location.hash
+      })}">`);
     </script>
   </head>
 

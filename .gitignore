@@ -1,3 +1,4 @@
+coverage
 dist
 node_modules
 
@@ -6,6 +7,7 @@ node_modules
 tsconfig.tsbuildinfo
 tsconfig.build.tsbuildinfo
 
+/.eslintcache
 /.stylelintcache
 /stats.json
 /report.html
