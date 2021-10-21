@@ -1,3 +1,32 @@
 {
+  "files.exclude": {
+    "**/.eslintcache": true,
+    "**/.stylelintcache": true,
+    "**/.git/**": true,
+    "**/public/vendors*": true,
+    "**/report.html": true,
+    "**/stats.json": true
+  },
+  "files.insertFinalNewline": true,
+  "files.watcherExclude": {
+    "**/.eslintcache": true,
+    "**/.stylelintcache": true,
+    "**/.git/**": true,
+    "**/dist/**": true,
+    "**/node_modules/**": true,
+    "**/public/vendors*": true,
+    "**/report.html": true,
+    "**/stats.json": true
+  },
+  "search.exclude": {
+    "**/.eslintcache": true,
+    "**/.stylelintcache": true,
+    "**/.git/**": true,
+    "**/dist/**": true,
+    "**/node_modules/**": true,
+    "**/public/vendors*": true,
+    "**/report.html": true,
+    "**/stats.json": true
+  },
   "typescript.tsdk": "node_modules/typescript/lib"
 }
