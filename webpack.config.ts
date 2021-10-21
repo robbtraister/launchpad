@@ -104,13 +104,15 @@ export default function getConfig(
           enabled: true,
           files: ["src/**/*.{ts,tsx}"],
           options: {
-            ignorePattern: [
-              "**/*.scss.d.ts",
-              "**/*.stories.ts",
-              "**/*.stories.tsx",
-              "**/*.test.ts",
-              "**/*.test.tsx",
-            ],
+            overrideConfig: {
+              ignorePatterns: [
+                "**/*.scss.d.ts",
+                "**/*.stories.ts",
+                "**/*.stories.tsx",
+                "**/*.test.ts",
+                "**/*.test.tsx",
+              ],
+            },
           },
         },
         logger: {
