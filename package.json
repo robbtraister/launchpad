@@ -1,7 +1,7 @@
 {
-  "name": "robbtraister",
+  "name": "launchpad",
   "version": "1.0.0",
-  "repository": "git@github.com:robbtraister/robbtraister.git",
+  "repository": "git@github.com:robbtraister/launchpad.git",
   "author": "robb.traister@gmail.com",
   "license": "MIT",
   "scripts": {
@@ -13,6 +13,7 @@
     "lint:css": "stylelint --cache 'src/**/*.{scss,js,jsx,ts,tsx}'",
     "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx src",
     "lint:ls": "ls-lint",
+    "postupdate": "yarn run lint:css --fix && yarn run lint:js --fix",
     "prebuild": "yarn install --silent --frozen-lockfile",
     "prebuild:vendors": "yarn install --frozen-lockfile",
     "prestart": "yarn run stop 2> /dev/null; yarn run build:vendors 2> /dev/null",
@@ -20,8 +21,11 @@
     "start": "webpack serve",
     "stop": "lsof -i \"TCP:${PORT:-443}\" -s TCP:LISTEN | grep 'LISTEN' | awk '{ print $2; }' | xargs kill 2> /dev/null || true",
     "test": "yarn run jest",
-    "typecheck": "tsc"
-  },
+    "typecheck": "tsc",
+    "update": "yarn run update:dependencies && yarn run update:msw",
+    "update:dependencies": "npm-check-updates --filterVersion '/^[^0-9]/' -u '/^(?!'\"$(node -p 'Object.keys(require(\"./package.json\").resolutions || {}).join(\"$|\")')\"'$).*/' && rm -rf node_modules yarn.lock && yarn install",
+    "update:msw": "msw init ./public"
+    },
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -34,9 +38,9 @@
     "@types/css-minimizer-webpack-plugin": "^3.0.2",
     "@types/jest": "^27.0.2",
     "@types/mini-css-extract-plugin": "^2.4.0",
-    "@types/node": "^16.11.1",
-    "@types/react": "^17.0.30",
-    "@types/react-dom": "^17.0.9",
+    "@types/node": "^16.11.2",
+    "@types/react": "^17.0.31",
+    "@types/react-dom": "^17.0.10",
     "@types/terser-webpack-plugin": "^5.2.0",
     "@types/webpack": "^5.28.0",
     "@types/webpack-dev-server": "^4.3.1",
@@ -49,7 +53,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "fork-ts-checker-webpack-plugin": "^6.3.4",
+    "fork-ts-checker-webpack-plugin": "^6.4.0",
     "html-webpack-plugin": "^5.4.0",
     "html-webpack-tags-plugin": "^3.0.1",
     "identity-obj-proxy": "^3.0.0",
@@ -71,7 +75,7 @@
     "tsconfig-paths-webpack-plugin": "^3.5.1",
     "typescript": "^4.4.4",
     "typescript-plugin-css-modules": "^3.4.0",
-    "webpack": "^5.58.2",
+    "webpack": "^5.59.1",
     "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.3.1"
