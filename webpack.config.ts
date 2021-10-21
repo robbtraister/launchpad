@@ -18,12 +18,13 @@ import { name, version } from "./package.json";
 import { getIsProd, getVendorRules } from "./webpack.vendors";
 
 export default function getConfig(
-  _env: Partial<Record<string, string>>,
+  env: Partial<Record<string, string>>,
   arg: { mode: string }
 ): Configuration {
   const isProd = getIsProd(arg.mode);
 
   const pathPrefix = `/${name}`;
+  const port = Number(env.PORT) || Number(process.env.PORT) || 443;
 
   return {
     entry: "./src",
@@ -170,7 +171,9 @@ export default function getConfig(
     },
     devServer: {
       compress: true,
-      open: "/index.html",
+      https: true,
+      open: "/",
+      port,
       watchFiles: "src/**/*",
     },
   };
