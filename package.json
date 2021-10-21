@@ -10,7 +10,7 @@
     "jest": "jest",
     "lint": "yarn run lint:ls && yarn run lint:css && yarn run lint:js",
     "lint:css": "stylelint --cache 'src/**/*.{scss,js,jsx,ts,tsx}'",
-    "lint:js": "eslint --ext .js,.jsx,.ts,.tsx .",
+    "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx src",
     "lint:ls": "ls-lint",
     "prebuild": "yarn install --frozen-lockfile",
     "prebuild:vendors": "yarn install --frozen-lockfile",
