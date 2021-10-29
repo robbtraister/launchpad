@@ -15,6 +15,7 @@ import {
 } from "webpack";
 
 import { name, version } from "./package.json";
+import { getCssRules } from "./webpack.styles";
 import { getIsProd, getVendorRules } from "./webpack.vendors";
 
 export default function getConfig(
@@ -42,49 +43,7 @@ export default function getConfig(
               : "style-loader",
           ],
         },
-        {
-          test: /\.css$/,
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                sourceMap: isProd,
-              },
-            },
-          ],
-        },
-        {
-          test: /\.scss$/,
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                sourceMap: isProd,
-                modules: {
-                  localIdentContext: path.resolve(__dirname, "src"),
-                  localIdentName: isProd
-                    ? "[local]__[contenthash:base64:5]"
-                    : "[path][name]_[local]",
-                  exportLocalsConvention: "camelCase",
-                },
-              },
-            },
-            {
-              loader: "sass-loader",
-              options: {
-                sourceMap: isProd,
-                sassOptions: {
-                  fiber:
-                    Number(process.versions.node.split(".")[0]) >= 16
-                      ? false
-                      : // this option does not support `true` as a value
-                        undefined,
-                  includePaths: ["./"],
-                },
-              },
-            },
-          ],
-        },
+        ...getCssRules(isProd),
         {
           test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
           use: "@svgr/webpack",

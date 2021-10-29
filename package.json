@@ -7,7 +7,7 @@
   "scripts": {
     "analyze": "yarn run --silent build --mode production --profile --json > ./stats.json && webpack-bundle-analyzer ./stats.json ./dist/ --mode static",
     "build": "webpack build --mode production",
-    "build:css": "[ -f ./webpack.css.ts ] && webpack build --config ./webpack.css.ts",
+    "build:css": "[ -f ./webpack.styles.ts ] && webpack build --config ./webpack.styles.ts",
     "build:vendors": "[ -f ./webpack.vendors.ts ] && ([ ! -f ./public/vendors-manifest.json ] || [ \"$(md5 -q ./node_modules/.yarn-integrity)\" != \"$(node -p \"require('./public/vendors-manifest.json').name.split('_').pop()\")\" ]) && NODE_OPTIONS=--max-old-space-size=4096 webpack build --config ./webpack.vendors.ts --env HASH=$(md5 -q ./node_modules/.yarn-integrity) || true",
     "clean:css": "rimraf './src/**/*.{css,scss}.d.ts'",
     "jest": "jest",
