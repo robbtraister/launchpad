@@ -132,6 +132,7 @@ export default function getConfig(
     },
     devServer: {
       compress: true,
+      historyApiFallback: true,
       https: true,
       open: "/",
       port,
