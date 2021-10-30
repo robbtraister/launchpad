@@ -10,6 +10,7 @@ import TsconfigPathsWebpackPlugin from "tsconfig-paths-webpack-plugin";
 
 import {
   Configuration,
+  DefinePlugin,
   DllReferencePlugin,
   WebpackPluginInstance,
 } from "webpack";
@@ -24,8 +25,10 @@ export default function getConfig(
 ): Configuration {
   const isProd = getIsProd(arg.mode);
 
-  const pathPrefix = `/${name}`;
   const port = Number(env.PORT) || Number(process.env.PORT) || 443;
+  const publicPath = (env.PUBLIC_PATH || process.env.PUBLIC_PATH || name)
+    .replace(/^\/*/, "/")
+    .replace(/\/*$/, "/");
 
   return {
     entry: "./src",
@@ -59,8 +62,12 @@ export default function getConfig(
     },
     output: {
       path: path.resolve(__dirname, "dist"),
+      publicPath,
     },
     plugins: [
+      new DefinePlugin({
+        "process.env.PUBLIC_PATH": JSON.stringify(publicPath),
+      }),
       new ForkTsCheckerWebpackPlugin({
         eslint: {
           enabled: true,
@@ -104,7 +111,7 @@ export default function getConfig(
         new HtmlWebpackPlugin({
           filename: "404.html",
           minify: false,
-          pathPrefix,
+          publicPath,
           scriptLoading: "defer",
           template: "./src/redirect.html",
           title: name,
@@ -118,11 +125,14 @@ export default function getConfig(
       !isProd &&
         // because the `vendors.js` artifact is built separately, HtmlWebpackPlugin doesn't know about it
         // HtmlWebpackTagsPlugin manually injects a <script src="/vendors.js"> tag into the index.html artifact
-        new HtmlWebpackTagsPlugin({ tags: ["vendors.js"], append: false }),
+        new HtmlWebpackTagsPlugin({
+          tags: ["./.dev/vendors.js"],
+          append: false,
+        }),
       !isProd &&
         new DllReferencePlugin({
           context: __dirname,
-          manifest: require("./public/vendors-manifest.json"),
+          manifest: require("./public/.dev/vendors-manifest.json"),
         }),
     ].filter(Boolean) as WebpackPluginInstance[],
     resolve: {
@@ -135,10 +145,15 @@ export default function getConfig(
     },
     devServer: {
       compress: true,
-      historyApiFallback: true,
+      historyApiFallback: {
+        index: publicPath,
+      },
       https: true,
-      open: "/",
+      open: publicPath,
       port,
+      static: {
+        publicPath,
+      },
       watchFiles: "src/**/*",
     },
   };

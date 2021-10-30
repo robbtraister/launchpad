@@ -81,7 +81,7 @@ export default (
     output: {
       devtoolNamespace: "vendors",
       filename: "[name].js",
-      path: path.resolve(__dirname, "public"),
+      path: path.resolve(__dirname, "public", ".dev"),
       // expose the modules via a global require function called `vendors_abc123` (or whatever)
       library: `[name]_${hash}`,
     },
@@ -92,7 +92,7 @@ export default (
     plugins: [
       // export a manifest file to be used by dev config
       new webpack.DllPlugin({
-        path: path.join(__dirname, "public", "[name]-manifest.json"),
+        path: path.join(__dirname, "public", ".dev", "[name]-manifest.json"),
         name: `[name]_${hash}`,
         entryOnly: false,
       }),
