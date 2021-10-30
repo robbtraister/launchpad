@@ -53,6 +53,9 @@ export default function getConfig(
     optimization: {
       minimize: isProd,
       minimizer: [new TerserWebpackPlugin(), new CssMinimizerPlugin()],
+      splitChunks: {
+        chunks: "async",
+      },
     },
     output: {
       path: path.resolve(__dirname, "dist"),
