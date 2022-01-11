@@ -156,5 +156,5 @@ export default function getConfig(
       },
       watchFiles: "src/**/*",
     },
-  };
+  } as any;
 }
